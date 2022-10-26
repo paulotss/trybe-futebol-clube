@@ -2,7 +2,7 @@ import { Model, INTEGER, STRING } from 'sequelize';
 import db from '.';
 // import OtherModel from './OtherModel';
 
-class Example extends Model {
+class Users extends Model {
   declare id: number;
   declare username: string;
   declare role: string;
@@ -10,7 +10,7 @@ class Example extends Model {
   declare password: string;
 }
 
-Example.init({
+Users.init({
   id: {
     primaryKey: true,
     allowNull: false,
@@ -46,4 +46,4 @@ Example.init({
 // Example.hasMany(OtherModel, { foreignKey: 'campoC', as: 'campoEstrangeiroC' });
 // Example.hasMany(OtherModel, { foreignKey: 'campoD', as: 'campoEstrangeiroD' });
 
-export default Example;
+export default Users;
