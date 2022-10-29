@@ -4,7 +4,7 @@ import * as chai from 'chai';
 import chaiHttp = require('chai-http');
 
 import { app } from '../app';
-import Example from '../database/models/ExampleModel';
+import Users from '../database/models/UsersModel'
 
 import { Response } from 'superagent';
 
@@ -39,7 +39,8 @@ describe('Seu teste', () => {
   //   expect(...)
   // });
 
-  it('Seu sub-teste', () => {
-    expect(false).to.be.eq(true);
+  it('Testes para instâncias de UserModel', () => {
+    const user = new Users();
+    expect(user).to.be.instanceOf(Users);
   });
 });
