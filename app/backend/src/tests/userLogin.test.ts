@@ -43,4 +43,10 @@ describe('Seu teste', () => {
     const user = new Users();
     expect(user).to.be.instanceOf(Users);
   });
+
+  it('Teste para rota /login', async () => {
+    const response = await chai.request(app).get('/login');
+    expect(response.status).to.equal(200);
+    expect(response.body).to.haveOwnProperty('token');
+  })
 });
