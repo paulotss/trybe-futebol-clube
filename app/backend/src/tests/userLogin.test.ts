@@ -44,12 +44,22 @@ describe('Seu teste', () => {
     expect(user).to.be.instanceOf(Users);
   });
 
-  it('Teste para rota /login', async () => {
+  it('Teste para rota /login com user válido', async () => {
     const response = await chai.request(app).post('/login').send({
       "email": "admin@admin.com",
 	    "password": "secret_admin"
     });
     expect(response.status).to.equal(200);
     expect(response.body).to.haveOwnProperty('token');
+  });
+
+  it('Teste para rota /login com user inválido', async () => {
+    const response = await chai.request(app).post('/login').send({
+      "email": "",
+	    "password": ""
+    });
+    expect(response.status).to.equal(400);
+    expect(response.body).to.haveOwnProperty('message');
+    expect(response.body.message).to.be.equal('All fields must be filled');
   })
 });
