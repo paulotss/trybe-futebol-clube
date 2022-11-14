@@ -53,7 +53,7 @@ describe('Seu teste', () => {
     expect(response.body).to.haveOwnProperty('token');
   });
 
-  it('Teste para rota /login com user inválido', async () => {
+  it('Teste para rota /login com dados undefined', async () => {
     const response = await chai.request(app).post('/login').send({
       "email": "",
 	    "password": ""
@@ -61,5 +61,15 @@ describe('Seu teste', () => {
     expect(response.status).to.equal(400);
     expect(response.body).to.haveOwnProperty('message');
     expect(response.body.message).to.be.equal('All fields must be filled');
+  });
+
+  it('Teste para rota /login com email inválido', async () => {
+    const response = await chai.request(app).post('/login').send({
+      "email": "123456",
+	    "password": "123456"
+    });
+    expect(response.status).to.equal(401);
+    expect(response.body).to.haveOwnProperty('message');
+    expect(response.body.message).to.be.equal('Incorrect email or password');
   })
 });
