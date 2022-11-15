@@ -7,6 +7,7 @@ import { app } from '../app';
 import Users from '../database/models/UsersModel'
 
 import { Response } from 'superagent';
+import { isTypedArray } from 'util/types';
 
 chai.use(chaiHttp);
 
@@ -38,38 +39,54 @@ describe('Seu teste', () => {
 
   //   expect(...)
   // });
-
-  it('Testes para instâncias de UserModel', () => {
-    const user = new Users();
-    expect(user).to.be.instanceOf(Users);
-  });
-
-  it('Teste para rota /login com user válido', async () => {
-    const response = await chai.request(app).post('/login').send({
-      "email": "admin@admin.com",
-	    "password": "secret_admin"
+  describe('Testes para rota login', () => {
+    it('Testes para instâncias de UserModel', () => {
+      const user = new Users();
+      expect(user).to.be.instanceOf(Users);
     });
-    expect(response.status).to.equal(200);
-    expect(response.body).to.haveOwnProperty('token');
-  });
-
-  it('Teste para rota /login com dados undefined', async () => {
-    const response = await chai.request(app).post('/login').send({
-      "email": "",
-	    "password": ""
+  
+    it('Teste com user válido', async () => {
+      const response = await chai.request(app).post('/login').send({
+        "email": "admin@admin.com",
+        "password": "secret_admin"
+      });
+      expect(response.status).to.equal(200);
+      expect(response.body).to.haveOwnProperty('token');
     });
-    expect(response.status).to.equal(400);
-    expect(response.body).to.haveOwnProperty('message');
-    expect(response.body.message).to.be.equal('All fields must be filled');
-  });
-
-  it('Teste para rota /login com email inválido', async () => {
-    const response = await chai.request(app).post('/login').send({
-      "email": "123456",
-	    "password": "123456"
+  
+    it('Teste com dados undefined', async () => {
+      const response = await chai.request(app).post('/login').send({
+        "email": "",
+        "password": ""
+      });
+      expect(response.status).to.equal(400);
+      expect(response.body).to.haveOwnProperty('message');
+      expect(response.body.message).to.be.equal('All fields must be filled');
     });
-    expect(response.status).to.equal(401);
-    expect(response.body).to.haveOwnProperty('message');
-    expect(response.body.message).to.be.equal('Incorrect email or password');
-  })
+  
+    it('Teste com email inválido', async () => {
+      const response = await chai.request(app).post('/login').send({
+        "email": "123456",
+        "password": "123456"
+      });
+      expect(response.status).to.equal(401);
+      expect(response.body).to.haveOwnProperty('message');
+      expect(response.body.message).to.be.equal('Incorrect email or password');
+    });
+
+    it('Teste para login/validate', async () => {
+      const response = await chai.request(app).post('/login').send({
+        "email": "admin@admin.com",
+        "password": "secret_admin"
+      });
+      const { token } = response.body;
+      const responseAuth = await chai.request(app).get('/login/validate')
+        .set('authorization', token);
+      
+      expect(responseAuth.status).to.equal(200);
+      expect(responseAuth.body).to.haveOwnProperty('role');
+      expect(responseAuth.body.role).to.be.equal('admin');
+    })
+  });
+  
 });

@@ -8,6 +8,14 @@ const userLogin = async (req: Request, res: Response) => {
   res.status(result.code).json(result.payload);
 };
 
+const validateRole = async (req: Request, res: Response) => {
+  const token = req.headers.authorization;
+  if (!token) return res.sendStatus(401);
+  const response = UserService.validateRole(token);
+  res.status(response.code).json(response.payload);
+};
+
 export default {
   userLogin,
+  validateRole,
 };

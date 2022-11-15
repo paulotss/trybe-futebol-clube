@@ -11,4 +11,10 @@ const jwtToken = (data: Users) => {
   return token;
 };
 
+export const jwtVerify = (token: string) => {
+  const secret = process.env.JWT_SECRET || 'jwt_secret';
+  const result = jwt.verify(token, secret);
+  return result;
+};
+
 export default jwtToken;
