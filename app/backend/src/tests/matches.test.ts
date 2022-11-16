@@ -67,5 +67,11 @@ describe('Testes para a rota /matches', () => {
     });
     expect(response.status).to.equal(401);
   });
+
+  it('Teste para atualizar inProgress de /matches/:id/finish', async () => {
+    const response = await chai.request(app).patch('/matches/:id/finish');
+    expect(response.status).to.equal(200);
+    expect(response.body.message).to.be.equal('Finished');
+  })
   
 });

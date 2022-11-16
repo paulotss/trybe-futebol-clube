@@ -36,8 +36,14 @@ const insertMatch = async (
   return { code: 201, payload: match };
 };
 
+const updateMatchInProgress = async (id: number) => {
+  await Matches.update({ inProgress: 0 }, { where: { id } });
+  return { code: 200, payload: { message: 'Finished' } };
+};
+
 export default {
   getAllMatches,
   getByInProgress,
   insertMatch,
+  updateMatchInProgress,
 };

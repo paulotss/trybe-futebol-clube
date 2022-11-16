@@ -21,7 +21,14 @@ const insertMatch = async (req: Request, res: Response) => {
   res.sendStatus(401);
 };
 
+const updateMatchInProgress = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const response = await matchesService.updateMatchInProgress(Number(id));
+  res.status(response.code).json(response.payload);
+};
+
 export default {
   getAllMatches,
   insertMatch,
+  updateMatchInProgress,
 };
