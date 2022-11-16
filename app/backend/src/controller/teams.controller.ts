@@ -10,7 +10,7 @@ const getOneTeam = async (req: Request, res: Response) => {
   const { id } = req.params;
   const team = await teamsService.getOneTeam(Number(id));
   res.status(team.code).json(team.payload);
-}
+};
 
 export default {
   getTeams,
