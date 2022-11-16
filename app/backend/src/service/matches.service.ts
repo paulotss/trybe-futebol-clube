@@ -20,7 +20,24 @@ const getByInProgress = async (val: string) => {
   return { code: 200, payload: matches };
 };
 
+const insertMatch = async (
+  homeTeam: string,
+  awayTeam: string,
+  homeTeamGoals: string,
+  awayTeamGoals: string,
+) => {
+  const match = await Matches.create({
+    homeTeam: Number(homeTeam),
+    awayTeam: Number(awayTeam),
+    homeTeamGoals: Number(homeTeamGoals),
+    awayTeamGoals: Number(awayTeamGoals),
+    inProgress: 1,
+  });
+  return { code: 201, payload: match };
+};
+
 export default {
   getAllMatches,
   getByInProgress,
+  insertMatch,
 };
