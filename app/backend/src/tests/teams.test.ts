@@ -26,6 +26,13 @@ describe('Testes para a rota /teams', () => {
     expect(response.status).to.equal(200);
     expect(response.body[0]).to.haveOwnProperty('teamName');
     expect(response.body[0]).to.haveOwnProperty('id');
+  });
+
+  it('Teste de retorno para GET por id', async () => {
+    const response = await chai.request(app).get('/teams/1');
+    expect(response.status).to.equal(200);
+    expect(response.body).to.haveOwnProperty('teamName');
+    expect(response.body).to.haveOwnProperty('id');
   })
   
 });
