@@ -46,9 +46,18 @@ const updateMatchInProgress = async (id: number) => {
   return { code: 200, payload: { message: 'Finished' } };
 };
 
+const updateMatch = async (id: number, htg: number, atg: number) => {
+  await Matches.update(
+    { homeTeamGoals: htg, awayTeamGoals: atg },
+    { where: { id } },
+  );
+  return { code: 200, payload: { message: 'Updated' } };
+};
+
 export default {
   getAllMatches,
   getByInProgress,
   insertMatch,
   updateMatchInProgress,
+  updateMatch,
 };

@@ -85,9 +85,17 @@ describe('Testes para a rota /matches', () => {
   });
 
   it('Teste para atualizar inProgress de /matches/:id/finish', async () => {
-    const response = await chai.request(app).patch('/matches/:id/finish');
+    const response = await chai.request(app).patch('/matches/1/finish');
     expect(response.status).to.equal(200);
     expect(response.body.message).to.be.equal('Finished');
+  });
+
+  it('Teste para update de match /:id', async () => {
+    const response = await chai.request(app).patch('/matches/1').send({
+      "homeTeamGoals": 3,
+      "awayTeamGoals": 1
+    });
+    expect(response.status).to.equal(200);
   })
   
 });

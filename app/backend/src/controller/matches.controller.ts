@@ -27,8 +27,20 @@ const updateMatchInProgress = async (req: Request, res: Response) => {
   res.status(response.code).json(response.payload);
 };
 
+const updateMatch = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const { homeTeamGoals, awayTeamGoals } = req.body;
+  if (homeTeamGoals && awayTeamGoals) {
+    const response = await matchesService
+      .updateMatch(Number(id), Number(homeTeamGoals), Number(awayTeamGoals));
+    return res.sendStatus(response.code);
+  }
+  res.sendStatus(404);
+};
+
 export default {
   getAllMatches,
   insertMatch,
   updateMatchInProgress,
+  updateMatch,
 };
