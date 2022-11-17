@@ -68,6 +68,22 @@ describe('Testes para a rota /matches', () => {
     expect(response.status).to.equal(401);
   });
 
+  it('Teste para cadastro de matches com times iguais', async () => {
+    const login = await chai.request(app).post('/login').send({
+      "email": "admin@admin.com",
+      "password": "secret_admin"
+    });
+    const { token } = login.body;
+    const response = await chai.request(app).post('/matches').send({
+      "homeTeam": 16,
+      "awayTeam": 16,
+      "homeTeamGoals": 2,
+      "awayTeamGoals": 2,
+    }).set('authorization', token);
+    expect(response.status).to.equal(422);
+    expect(response.body.message).to.equal('It is not possible to create a match with two equal teams')
+  });
+
   it('Teste para atualizar inProgress de /matches/:id/finish', async () => {
     const response = await chai.request(app).patch('/matches/:id/finish');
     expect(response.status).to.equal(200);

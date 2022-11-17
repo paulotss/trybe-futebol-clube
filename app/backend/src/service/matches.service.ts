@@ -26,6 +26,11 @@ const insertMatch = async (
   homeTeamGoals: string,
   awayTeamGoals: string,
 ) => {
+  if (homeTeam === awayTeam) {
+    return { code: 422,
+      payload: { message: 'It is not possible to create a match with two equal teams' },
+    };
+  }
   const match = await Matches.create({
     homeTeam: Number(homeTeam),
     awayTeam: Number(awayTeam),
