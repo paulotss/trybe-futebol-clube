@@ -33,7 +33,7 @@ const updateMatch = async (req: Request, res: Response) => {
   if (homeTeamGoals && awayTeamGoals) {
     const response = await matchesService
       .updateMatch(Number(id), Number(homeTeamGoals), Number(awayTeamGoals));
-    return res.sendStatus(response.code);
+    return res.status(response.code).json(response.payload);
   }
   res.sendStatus(404);
 };
