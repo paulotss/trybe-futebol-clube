@@ -7,7 +7,7 @@ const validateToken = (req: Request, res: Response, next: NextFunction) => {
     const result = jwtVerify(authorization);
     if (typeof result !== 'string') return next();
   }
-  res.sendStatus(401);
+  res.status(401).json({ message: 'Token must be a valid token' });
 };
 
 export default validateToken;
