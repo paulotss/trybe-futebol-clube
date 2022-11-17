@@ -8,8 +8,8 @@ const validateToken = (req: Request, res: Response, next: NextFunction) => {
   if (authorization) {
     try {
       jwt.verify(authorization, secret);
-      return next()
-    } catch(err) {
+      return next();
+    } catch (err) {
       return res.status(401).json({ message: 'Token must be a valid token' });
     }
   }
