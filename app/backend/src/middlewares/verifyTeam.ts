@@ -6,7 +6,7 @@ const verifyTeam = async (req: Request, res: Response, next: NextFunction) => {
   if (homeTeam && awayTeam) {
     const team1 = await teamsService.getOneTeam(Number(homeTeam));
     const team2 = await teamsService.getOneTeam(Number(awayTeam));
-    if (!team1 && !team2) {
+    if (!team1.payload || !team2.payload) {
       return res.status(404).json({ message: 'There is no team with such id!' });
     }
     return next();
