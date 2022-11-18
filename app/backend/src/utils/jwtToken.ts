@@ -1,5 +1,5 @@
 import * as jwt from 'jsonwebtoken';
-import Users from '../database/models/UsersModel';
+import Users from '../database/models/user.model';
 import 'dotenv';
 
 const jwtToken = (data: Users) => {

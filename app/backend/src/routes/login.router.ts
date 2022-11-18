@@ -3,7 +3,9 @@ import UserController from '../controller/user.controller';
 
 const route = Router();
 
-route.post('/', UserController.userLogin);
-route.get('/validate', UserController.validateRole);
+const userController = new UserController();
+
+route.post('/', userController.userLogin);
+route.get('/validate', userController.validateToken, userController.getDataToken);
 
 export default route;

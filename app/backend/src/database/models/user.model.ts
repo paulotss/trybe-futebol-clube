@@ -2,7 +2,7 @@ import { Model, INTEGER, STRING } from 'sequelize';
 import db from '.';
 // import OtherModel from './OtherModel';
 
-class Users extends Model {
+class User extends Model {
   declare id: number;
   declare username: string;
   declare role: string;
@@ -10,7 +10,7 @@ class Users extends Model {
   declare password: string;
 }
 
-Users.init({
+User.init({
   id: {
     primaryKey: true,
     allowNull: false,
@@ -36,8 +36,9 @@ Users.init({
 }, {
   underscored: true,
   sequelize: db,
-  modelName: 'users',
+  modelName: 'user',
   timestamps: false,
+  tableName: 'users',
 });
 
 // OtherModel.belongsTo(Example, { foreignKey: 'campoA', as: 'campoEstrangeiroA' });
@@ -46,4 +47,4 @@ Users.init({
 // Example.hasMany(OtherModel, { foreignKey: 'campoC', as: 'campoEstrangeiroC' });
 // Example.hasMany(OtherModel, { foreignKey: 'campoD', as: 'campoEstrangeiroD' });
 
-export default Users;
+export default User;
