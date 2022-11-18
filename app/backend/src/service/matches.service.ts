@@ -1,4 +1,4 @@
-import Teams from '../database/models/TeamsModel';
+import Teams from '../database/models/team.model';
 import Matches from '../database/models/MatchesModel';
 
 const getAllMatches = async () => {

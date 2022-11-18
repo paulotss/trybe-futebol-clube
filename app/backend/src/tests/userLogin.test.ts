@@ -4,8 +4,6 @@ import * as chai from 'chai';
 import chaiHttp = require('chai-http');
 
 import { app } from '../app';
-import { Response } from 'superagent';
-import { isTypedArray } from 'util/types';
 import User from '../database/models/user.model';
 
 chai.use(chaiHttp);
@@ -13,12 +11,6 @@ chai.use(chaiHttp);
 const { expect } = chai;
 
 describe('Testes para a rota /login', () => {
-  /**
-   * Exemplo do uso de stubs com tipos
-   */
-
-  let response: Response;
-
   const mockUser = {
     id: 1,
     username: "Admin",

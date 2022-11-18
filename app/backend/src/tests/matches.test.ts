@@ -4,7 +4,7 @@ import * as chai from 'chai';
 import chaiHttp = require('chai-http');
 
 import { app } from '../app';
-import Matches from '../database/models/TeamsModel';
+import Matches from '../database/models/MatchesModel';
 
 import { Response } from 'superagent';
 import { isTypedArray } from 'util/types';

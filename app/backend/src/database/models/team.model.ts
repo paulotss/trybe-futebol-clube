@@ -2,12 +2,12 @@ import { Model, INTEGER, STRING } from 'sequelize';
 import db from '.';
 // import OtherModel from './OtherModel';
 
-class Teams extends Model {
+class Team extends Model {
   declare id: number;
   declare teamName: string;
 }
 
-Teams.init({
+Team.init({
   id: {
     primaryKey: true,
     allowNull: false,
@@ -21,8 +21,9 @@ Teams.init({
 }, {
   underscored: true,
   sequelize: db,
-  modelName: 'teams',
+  modelName: 'team',
   timestamps: false,
+  tableName: 'teams',
 });
 
 // OtherModel.belongsTo(Example, { foreignKey: 'campoA', as: 'campoEstrangeiroA' });
@@ -31,4 +32,4 @@ Teams.init({
 // Teams.hasMany(Matches, { foreignKey: 'homeTeam', as: 'teamHome' });
 // Example.hasMany(OtherModel, { foreignKey: 'campoD', as: 'campoEstrangeiroD' });
 
-export default Teams;
+export default Team;
