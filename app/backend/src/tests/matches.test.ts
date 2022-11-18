@@ -4,41 +4,69 @@ import * as chai from 'chai';
 import chaiHttp = require('chai-http');
 
 import { app } from '../app';
-import Matches from '../database/models/MatchesModel';
-
-import { Response } from 'superagent';
-import { isTypedArray } from 'util/types';
+import Match from '../database/models/match.model';
 
 chai.use(chaiHttp);
 
 const { expect } = chai;
 
 describe('Testes para a rota /matches', () => {
-    
-  it('Testes para instâncias de UserModel', () => {
-    const teams = new Matches();
-    expect(teams).to.be.instanceOf(Matches);
+  const mockMatches = [
+    {
+      id: 1,
+      homeTeam: 16,
+      homeTeamGoals: 3,
+      awayTeam: 8,
+      awayTeamGoals: 1,
+      inProgress: false,
+    },
+    {
+      id: 2,
+      homeTeam: 9,
+      homeTeamGoals: 1,
+      awayTeam: 14,
+      awayTeamGoals: 1,
+      inProgress: false,
+    },
+  ];
+
+  const mockCreateMatch = {
+    id: 1,
+    homeTeam: 16,
+    homeTeamGoals: 2,
+    awayTeam: 8,
+    awayTeamGoals: 2,
+    inProgress: true,
+  }
+
+  before(async () => {
+    sinon.stub(Match, 'findAll').resolves(mockMatches as Match[]);
+    sinon.stub(Match, 'create').resolves(mockCreateMatch as Match);
+    sinon.stub(Match, 'update').resolves([1, mockMatches as Match[]]);
   });
+
+  after(() => {
+    (Match.findAll as sinon.SinonStub).restore();
+    (Match.create as sinon.SinonStub).restore();
+    (Match.update as sinon.SinonStub).restore();
+  })
 
   it('Teste de retorno para GET', async () => {
     const response = await chai.request(app).get('/matches');
     expect(response.status).to.equal(200);
-    expect(response.body[0]).to.haveOwnProperty('teamHome');
-    expect(response.body[0]).to.haveOwnProperty('teamAway');
+    expect(response.body).to.have.length(2);
   });
 
   it('Teste de retorno para GET com filtro inProgress=true', async () => {
     const response = await chai.request(app).get('/matches?inProgress=true');
     expect(response.status).to.equal(200);
-    expect(response.body[0]).to.haveOwnProperty('teamHome');
-    expect(response.body[0]).to.haveOwnProperty('teamAway');
+    expect(response.body).to.have.length(2);
   });
 
   it('Teste de retorno para GET com filtro inProgress=false', async () => {
     const response = await chai.request(app).get('/matches?inProgress=true');
     expect(response.status).to.equal(200);
-    expect(response.body[0]).to.haveOwnProperty('teamHome');
-    expect(response.body[0]).to.haveOwnProperty('teamAway');
+    expect(response.body).to.have.length(2);
   });
 
   it('Teste para cadastro de matches com authorization', async () => {

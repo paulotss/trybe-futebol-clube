@@ -1,13 +1,15 @@
 import { Router } from 'express';
-import validateToken from '../middlewares/validateToken';
-import matchesController from '../controller/matches.controller';
-import verifyTeam from '../middlewares/verifyTeam';
+import MatchController from '../controller/match.controller';
+import UserController from '../controller/user.controller';
 
 const route = Router();
 
-route.get('/', matchesController.getAllMatches);
-route.post('/', validateToken, verifyTeam, matchesController.insertMatch);
-route.patch('/:id/finish', matchesController.updateMatchInProgress);
-route.patch('/:id', matchesController.updateMatch);
+const matchController = new MatchController();
+const userController = new UserController();
+
+route.get('/', matchController.getAllMatches);
+route.post('/', userController.validateToken, matchController.insertMatch);
+route.patch('/:id/finish', matchController.updateMatchInProgress);
+route.patch('/:id', matchController.updateMatch);
 
 export default route;
