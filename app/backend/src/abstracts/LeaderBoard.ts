@@ -11,9 +11,46 @@ abstract class MainLeaderBoard {
     this.leaderBoard = [];
   }
 
-  abstract generateLeaderBoard(): Promise<LeaderBoard[]>;
+  public generateLeaderBoard = async () => {
+    this.teams = await Team.findAll();
+    this.matches = await Match.findAll({ where: { inProgress: 0 } });
+    this.leaderBoard = [];
+    for (let i = 0; i < this.teams.length; i += 1) {
+      const matches = this.getMatchesByTeamId(this.teams[i].id);
+      const mainTeams = this.generateMainTeams(matches, this.teams[i].id);
+      this.addLeaderBoard(this.teams[i], matches, mainTeams);
+    }
+    this.sortLeaderBoard();
+    return this.leaderBoard;
+  };
+
   abstract getMatchesByTeamId(id: number): Match[];
   abstract generateMainTeams(matches: Match[], id?: number): MainTeam[];
+
+  protected addLeaderBoard = (t: Team, m: Match[], mt: MainTeam[]) => {
+    this.leaderBoard.push({ name: t.teamName,
+      totalPoints: this.totalPoints(mt),
+      totalGames: m.length,
+      totalVictories: this.totalVictories(mt),
+      totalDraws: this.totalDraws(mt),
+      totalLosses: this.totalLosses(mt),
+      goalsFavor: this.totalGoalsFavor(mt),
+      goalsOwn: this.totalGoalsOwn(mt),
+      goalsBalance: this.goalsBalance(mt),
+      efficiency: this.efficiency(mt),
+    });
+  };
+
+  protected sortLeaderBoard = () => {
+    this.leaderBoard.sort((a, b) => {
+      if (b.totalPoints - a.totalPoints !== 0) return b.totalPoints - a.totalPoints;
+      if (b.totalVictories - a.totalVictories !== 0) return b.totalVictories - a.totalVictories;
+      if (b.goalsBalance - a.goalsBalance !== 0) return b.goalsBalance - a.goalsBalance;
+      if (b.goalsFavor - a.goalsFavor !== 0) return b.goalsFavor - a.goalsFavor;
+      if (b.goalsOwn - a.goalsOwn !== 0) return a.goalsOwn - b.goalsOwn;
+      return 0;
+    });
+  };
 
   protected totalPoints = (results: MainTeam[]) => {
     let total = 0;
