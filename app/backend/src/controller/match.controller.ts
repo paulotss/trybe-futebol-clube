@@ -20,15 +20,12 @@ class MatchController {
 
   public insertMatch = async (req: Request, res: Response) => {
     const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals } = req.body;
-    if (homeTeam && awayTeam && homeTeamGoals && awayTeamGoals) {
-      this.matchService.ht = Number(homeTeam);
-      this.matchService.at = Number(awayTeam);
-      this.matchService.htg = Number(homeTeamGoals);
-      this.matchService.atg = Number(awayTeamGoals);
-      const match = await this.matchService.insertMatch();
-      return res.status(this.matchService.code).json(match);
-    }
-    res.sendStatus(404);
+    this.matchService.ht = Number(homeTeam);
+    this.matchService.at = Number(awayTeam);
+    this.matchService.htg = Number(homeTeamGoals);
+    this.matchService.atg = Number(awayTeamGoals);
+    const match = await this.matchService.insertMatch();
+    return res.status(this.matchService.code).json(match);
   };
 
   public updateMatchInProgress = async (req: Request, res: Response) => {
