@@ -1,6 +1,6 @@
 # Trybe Futebol Clube
 
-O TFC é um site informativo sobre partidas e classificações de futebol! Nesse projeto desenvolvi todo back-end da aplicação como parte do curso de desenvolvimento web da Trybe. 
+O TFC é um site informativo sobre partidas e classificações de futebol! Nesse projeto desenvolvi todo **back-end** da aplicação como parte do curso de desenvolvimento web da Trybe. Foi aplicado o modelo MSC bem como os princípios SOLID de POO (Programação Orientada a Objetos).
 
 ## Tecnologias utilizadas
 
