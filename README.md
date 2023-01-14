@@ -1,6 +1,20 @@
 # Trybe Futebol Clube
 
-O TFC é um site informativo sobre partidas e classificações de futebol!
+O TFC é um site informativo sobre partidas e classificações de futebol! Nesse projeto desenvolvi todo back-end da aplicação como parte do curso de desenvolvimento web da Trybe. 
+
+## Tecnologias utilizadas
+
+<div style="display: inline">
+<img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white">
+
+<img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white">
+
+<img src="https://img.shields.io/badge/Express.js-404D59?style=for-the-badge">
+
+<img src="https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white">
+
+<img src="https://img.shields.io/badge/sequelize-323330?style=for-the-badge&logo=sequelize&logoColor=blue">
+</div>
 
 ## Execução
 
