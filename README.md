@@ -1,6 +1,14 @@
 # Trybe Futebol Clube
 
-O TFC é um site informativo sobre partidas e classificações de futebol! :soccer
+O TFC é um site informativo sobre partidas e classificações de futebol!
+
+## Execução
+
+Deve ser feita utilizando docker-compose. O seu docker-compose precisa estar na versão 1.29 ou superior.
+
+`` npm run compose:up ``
+
+Após o comando acima, a aplicação estará disponível em http://localhost:3000/
 
 <!-- Olá, Tryber!
 Esse é apenas um arquivo inicial para o README do seu projeto no qual você pode customizar e reutilizar todas as vezes que for executar o trybe-publisher.
